@@ -1,0 +1,221 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-1",
+      "description": "Elegant woman in a stylish Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215798/pexels-photo-34215798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "imageHint": "pakistani fashion woman"
+    },
+    {
+      "id": "hero-2",
+      "description": "Woman in a luxurious formal Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215797/pexels-photo-34215797.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "imageHint": "luxury pakistani dress"
+    },
+    {
+      "id": "hero-3",
+      "description": "Woman in a modern, comfortable Pakistani outfit.",
+      "imageUrl": "https://images.pexels.com/photos/34215796/pexels-photo-34215796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "imageHint": "modern pakistani fashion"
+    },
+    {
+      "id": "hero-4",
+      "description": "Woman in a traditional and beautiful blue Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215795/pexels-photo-34215795.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "imageHint": "traditional pakistani dress"
+    },
+    {
+      "id": "hero-5",
+      "description": "A woman in a comfortable and elegant everyday Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215733/pexels-photo-34215733.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "imageHint": "casual pakistani wear"
+    },
+    {
+      "id": "testimonial-1",
+      "description": "Portrait of a smiling woman of South Asian descent.",
+      "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&h=100&fit=crop",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "testimonial-2",
+      "description": "Portrait of a happy woman of South Asian descent.",
+      "imageUrl": "https://images.unsplash.com/photo-1594744806629-9a5a48435b3c?q=80&w=100&h=100&fit=crop",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "testimonial-3",
+      "description": "Portrait of a confident woman of South Asian descent.",
+      "imageUrl": "https://images.unsplash.com/photo-1548449112-96a38a643324?q=80&w=100&h=100&fit=crop",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "ig-1",
+      "description": "Instagram lifestyle photo of a woman in a Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215787/pexels-photo-34215787.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "imageHint": "fashion lifestyle"
+    },
+    {
+      "id": "ig-2",
+      "description": "Instagram lifestyle photo of Pakistani fashion.",
+      "imageUrl": "https://images.pexels.com/photos/34215785/pexels-photo-34215785.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "imageHint": "fashion blogger"
+    },
+    {
+      "id": "ig-3",
+      "description": "Instagram lifestyle photo of city fashion in Pakistan.",
+      "imageUrl": "https://images.pexels.com/photos/34215773/pexels-photo-34215773.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "imageHint": "city fashion"
+    },
+    {
+      "id": "ig-4",
+      "description": "Instagram lifestyle photo of minimalist Pakistani fashion.",
+      "imageUrl": "https://images.pexels.com/photos/34215738/pexels-photo-34215738.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "imageHint": "minimalist fashion"
+    },
+    {
+      "id": "ig-5",
+      "description": "Instagram lifestyle photo with a coffee and fashion aesthetic.",
+      "imageUrl": "https://images.pexels.com/photos/34215735/pexels-photo-34215735.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "imageHint": "coffee fashion"
+    },
+    {
+      "id": "category-new-arrivals",
+      "description": "A woman wearing a modern, stylish new Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215727/pexels-photo-34215727.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "new arrivals pakistani"
+    },
+    {
+      "id": "category-luxury-formals",
+      "description": "A person wearing a formal, elegant Pakistani dress.",
+      "imageUrl": "https://images.pexels.com/photos/34215787/pexels-photo-34215787.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "luxury formal pakistani"
+    },
+    {
+      "id": "category-everyday-comfort",
+      "description": "A comfortable and stylish Pakistani kurti for everyday wear.",
+      "imageUrl": "https://images.pexels.com/photos/34215785/pexels-photo-34215785.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "comfort fashion pakistani"
+    },
+    {
+      "id": "about-hero",
+      "description": "Elegant Pakistani dress on a mannequin.",
+      "imageUrl": "https://images.pexels.com/photos/34215675/pexels-photo-34215675.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+      "imageHint": "pakistani dress mannequin"
+    },
+    {
+      "id": "about-story",
+      "description": "A vibrant Pakistani textile market.",
+      "imageUrl": "https://images.pexels.com/photos/34215738/pexels-photo-34215738.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      "imageHint": "pakistani textile market"
+    },
+    {
+      "id": "about-craft",
+      "description": "An artisan's hands weaving on a traditional loom.",
+      "imageUrl": "https://images.pexels.com/photos/34215735/pexels-photo-34215735.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      "imageHint": "artisan weaving loom"
+    },
+    {
+      "id": "about-designer",
+      "description": "Portrait of the designer.",
+      "imageUrl": "https://images.pexels.com/photos/34215692/pexels-photo-34215692.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop",
+      "imageHint": "designer portrait"
+    },
+    {
+      "id": "auth-side-image",
+      "description": "Fashion Eastern dresses by Dhanno.",
+      "imageUrl": "https://images.pexels.com/photos/27603287/pexels-photo-27603287.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1800&fit=crop",
+      "imageHint": "eastern fashion"
+    },
+    {
+      "id": "product-1-1",
+      "description": "Woman in a beautiful western dress.",
+      "imageUrl": "https://images.pexels.com/photos/18977053/pexels-photo-18977053.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=2",
+      "imageHint": "woman western dress"
+    },
+    {
+      "id": "product-2-1",
+      "description": "A vibrant Pakistani textile market.",
+      "imageUrl": "https://images.pexels.com/photos/34215787/pexels-photo-34215787.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "pakistani textile market"
+    },
+    {
+      "id": "product-3-1",
+      "description": "A simple and versatile beige shalwar kameez for men.",
+      "imageUrl": "https://images.pexels.com/photos/34215785/pexels-photo-34215785.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "beige kameez"
+    },
+    {
+      "id": "product-4-1",
+      "description": "A striking royal blue kurta for special occasions.",
+      "imageUrl": "https://images.pexels.com/photos/34215773/pexels-photo-34215773.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "royal blue kurta"
+    },
+    {
+      "id": "product-5-1",
+      "description": "A tailored black waistcoat to elevate any traditional outfit.",
+      "imageUrl": "https://images.pexels.com/photos/34215738/pexels-photo-34215738.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "black waistcoat"
+    },
+    {
+      "id": "product-6-1",
+      "description": "A warm and stylish burgundy shawl for men.",
+      "imageUrl": "https://images.pexels.com/photos/34215735/pexels-photo-34215735.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "burgundy shawl"
+    },
+    {
+      "id": "product-7-1",
+      "description": "A fresh and bright yellow kurti for sunny days.",
+      "imageUrl": "https://images.pexels.com/photos/34215727/pexels-photo-34215727.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "yellow lawn kurti"
+    },
+    {
+      "id": "product-8-1",
+      "description": "A traditional angrakha style dress in a beautiful opal white.",
+      "imageUrl": "https://images.pexels.com/photos/34215798/pexels-photo-34215798.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "white angrakha"
+    },
+    {
+      "id": "product-9-1",
+      "description": "A regal prince coat in a deep forest green.",
+      "imageUrl": "https://images.pexels.com/photos/34215797/pexels-photo-34215797.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "green prince coat"
+    },
+    {
+      "id": "product-10-1",
+      "description": "A sharp and elegant black sherwani for men.",
+      "imageUrl": "https://images.pexels.com/photos/34215796/pexels-photo-34215796.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "black sherwani"
+    },
+    {
+      "id": "product-11-1",
+      "description": "A vibrant fuchsia lehnga choli with mirror work.",
+      "imageUrl": "https://images.pexels.com/photos/34215795/pexels-photo-34215795.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "fuchsia lehnga"
+    },
+    {
+      "id": "product-12-1",
+      "description": "An artisan's hands weaving on a traditional loom.",
+      "imageUrl": "https://images.pexels.com/photos/34215726/pexels-photo-34215726.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "artisan weaving loom"
+    },
+    {
+      "id": "product-13-1",
+      "description": "A rich amber gold kurta with traditional block print patterns.",
+      "imageUrl": "https://images.pexels.com/photos/34215721/pexels-photo-34215721.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "amber gold kurta"
+    },
+    {
+      "id": "product-14-1",
+      "description": "An elegant azure blue saree.",
+      "imageUrl": "https://images.pexels.com/photos/34215691/pexels-photo-34215691.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "azure blue saree"
+    },
+    {
+      "id": "product-15-1",
+      "description": "An ivory white kurta with delicate threadwork.",
+      "imageUrl": "https://images.pexels.com/photos/34215687/pexels-photo-34215687.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+      "imageHint": "ivory white kurta"
+    }
+  ]
+}
