@@ -14,18 +14,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { useUser, useFirestore } from '@/firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const router = useRouter();
   const { toast } = useToast();
-  const { data: user } = useUser();
-  const firestore = useFirestore();
+  const [user, setUser] = useState<any>(null);
 
   const product = products.find(p => p.id === resolvedParams.id);
 
@@ -33,35 +28,51 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(product?.images?.[0]?.imageUrl || '');
 
+  React.useEffect(() => {
+    // Check for user in localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
   if (!product) {
     notFound();
     return null;
   }
 
   const handleAddToCart = () => {
-    if (!user || !firestore) {
+    if (!user) {
       router.push('/login');
       return;
     }
 
-    const cartItemRef = doc(firestore, `users/${user.uid}/cart`, product.id);
-    const itemData = { productId: product.id, quantity };
+    // Get current cart from localStorage
+    const cartData = localStorage.getItem('cart');
+    let cart = cartData ? JSON.parse(cartData) : [];
     
-    setDoc(cartItemRef, itemData, { merge: true })
-      .then(() => {
-        toast({
-          title: "Added to Cart",
-          description: `${product.name} has been added to your cart.`,
-        });
-      })
-      .catch(async (serverError) => {
-        const permissionError = new FirestorePermissionError({
-          path: cartItemRef.path,
-          operation: 'create',
-          requestResourceData: itemData,
-        });
-        errorEmitter.emit('permission-error', permissionError);
+    // Check if product already in cart
+    const existingItemIndex = cart.findIndex((item: any) => item.productId === product.id);
+    
+    if (existingItemIndex >= 0) {
+      // Update quantity if already exists
+      cart[existingItemIndex].quantity += quantity;
+    } else {
+      // Add new item
+      cart.push({
+        id: product.id,
+        productId: product.id,
+        quantity: quantity
       });
+    }
+    
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart.`,
+    });
   };
 
   return (
