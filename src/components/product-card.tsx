@@ -6,11 +6,7 @@ import { Heart } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { useUser, useFirestore } from '@/firebase';
-import { doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -20,67 +16,58 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, className }: ProductCardProps) {
-  const { data: user } = useUser();
-  const firestore = useFirestore();
+  const [user, setUser] = useState<any>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (!user || !firestore) {
-      setIsFavorite(false);
-      return;
-    };
-    const wishlistItemRef = doc(firestore, `users/${user.uid}/wishlist`, product.id);
-    getDoc(wishlistItemRef).then((docSnap) => {
-      setIsFavorite(docSnap.exists());
-    });
-  }, [user, firestore, product.id]);
+    // Check for user in localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+      // Check if product is in wishlist
+      const wishlistData = localStorage.getItem('wishlist');
+      if (wishlistData) {
+        const wishlist = JSON.parse(wishlistData);
+        setIsFavorite(wishlist.some((item: any) => item.productId === product.id));
+      }
+    }
+  }, [product.id]);
 
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user || !firestore) {
+    if (!user) {
       router.push('/login');
       return;
     }
 
-    const wishlistItemRef = doc(firestore, `users/${user.uid}/wishlist`, product.id);
+    // Get current wishlist from localStorage
+    const wishlistData = localStorage.getItem('wishlist');
+    let wishlist = wishlistData ? JSON.parse(wishlistData) : [];
     
     if (isFavorite) {
-        setIsFavorite(false);
-        deleteDoc(wishlistItemRef).then(() => {
-            toast({
-              title: "Removed from Wishlist",
-              description: `${product.name} has been removed from your wishlist.`,
-            });
-        }).catch(async (serverError) => {
-            setIsFavorite(true); // Revert optimistic update
-            const permissionError = new FirestorePermissionError({
-                path: wishlistItemRef.path,
-                operation: 'delete',
-            });
-            errorEmitter.emit('permission-error', permissionError);
-        });
+      // Remove from wishlist
+      wishlist = wishlist.filter((item: any) => item.productId !== product.id);
+      setIsFavorite(false);
+      toast({
+        title: "Removed from Wishlist",
+        description: `${product.name} has been removed from your wishlist.`,
+      });
     } else {
-        setIsFavorite(true);
-        const itemData = { productId: product.id };
-        setDoc(wishlistItemRef, itemData).then(() => {
-            toast({
-              title: "Added to Wishlist",
-              description: `${product.name} has been added to your wishlist.`,
-            });
-        }).catch(async (serverError) => {
-           setIsFavorite(false); // Revert optimistic update
-           const permissionError = new FirestorePermissionError({
-            path: wishlistItemRef.path,
-            operation: 'create',
-            requestResourceData: itemData,
-           });
-           errorEmitter.emit('permission-error', permissionError);
-        });
+      // Add to wishlist
+      wishlist.push({ productId: product.id });
+      setIsFavorite(true);
+      toast({
+        title: "Added to Wishlist",
+        description: `${product.name} has been added to your wishlist.`,
+      });
     }
+    
+    // Save updated wishlist to localStorage
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
   };
 
   return (

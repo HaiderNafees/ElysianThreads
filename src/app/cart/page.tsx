@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useUser, useFirestore, useCollection } from '@/firebase';
-import { collection, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { products } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,44 +9,39 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Trash2, Loader2, Heart } from 'lucide-react';
 import { useMemo } from 'react';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function CartPage() {
-  const { data: user, loading: userLoading } = useUser();
-  const firestore = useFirestore();
+  const [user, setUser] = React.useState<any>(null);
+  const [cartItems, setCartItems] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
-  const cartCollectionRef = useMemo(() => {
-    if (!firestore || !user) return null;
-    return collection(firestore, `users/${user.uid}/cart`);
-  }, [firestore, user]);
-  
-  const { data: cartItems, loading: cartLoading } = useCollection(cartCollectionRef);
+  React.useEffect(() => {
+    // Check for user in localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+      // Load cart from localStorage
+      const cartData = localStorage.getItem('cart');
+      if (cartData) {
+        setCartItems(JSON.parse(cartData));
+      }
+    }
+    setLoading(false);
+  }, []);
 
   const handleQuantityChange = (cartItemId: string, newQuantity: number) => {
-    if (!firestore || !user || newQuantity < 1) return;
-    const itemRef = doc(firestore, `users/${user.uid}/cart`, cartItemId);
-    const itemData = { quantity: newQuantity };
-    updateDoc(itemRef, itemData).catch(async (serverError) => {
-      const permissionError = new FirestorePermissionError({
-        path: itemRef.path,
-        operation: 'update',
-        requestResourceData: itemData,
-      });
-      errorEmitter.emit('permission-error', permissionError);
-    });
+    if (newQuantity < 1) return;
+    const updatedCart = cartItems.map(item => 
+      item.id === cartItemId ? { ...item, quantity: newQuantity } : item
+    );
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const handleRemoveItem = (cartItemId: string) => {
-    if (!firestore || !user) return;
-    const itemRef = doc(firestore, `users/${user.uid}/cart`, cartItemId);
-    deleteDoc(itemRef).catch(async (serverError) => {
-      const permissionError = new FirestorePermissionError({
-        path: itemRef.path,
-        operation: 'delete',
-      });
-      errorEmitter.emit('permission-error', permissionError);
-    });
+    const updatedCart = cartItems.filter(item => item.id !== cartItemId);
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const cartDetails = React.useMemo(() => {
@@ -67,7 +60,7 @@ export default function CartPage() {
   }, [cartDetails]);
 
 
-  if (userLoading || cartLoading) {
+  if (loading) {
     return <div className="flex justify-center items-center h-[calc(100vh-5rem)]"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 

@@ -11,8 +11,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Logo } from '@/components/logo';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/firebase';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import Image from 'next/image';
 
 const loginSchema = z.object({
@@ -25,16 +23,20 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const auth = useAuth();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    if (!auth) return;
+    // Mock login - store user info in localStorage
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const mockUser = {
+        email: data.email,
+        name: data.email.split('@')[0],
+        isLoggedIn: true
+      };
+      localStorage.setItem('user', JSON.stringify(mockUser));
       toast({ title: 'Login Successful', description: "Welcome back!" });
       router.push('/');
     } catch (error: any) {
@@ -47,17 +49,21 @@ export default function LoginPage() {
   };
 
   const handleGoogleSignIn = async () => {
-    if (!auth) return;
-    const provider = new GoogleAuthProvider();
+    // Mock Google sign in
     try {
-      await signInWithPopup(auth, provider);
+      const mockUser = {
+        email: 'user@gmail.com',
+        name: 'Google User',
+        isLoggedIn: true
+      };
+      localStorage.setItem('user', JSON.stringify(mockUser));
       toast({ title: 'Login Successful', description: "Welcome!" });
       router.push('/');
     } catch (error: any) {
        toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: error.message || 'Could not sign in with Google.',
+        description: 'Could not sign in with Google.',
       });
     }
   };

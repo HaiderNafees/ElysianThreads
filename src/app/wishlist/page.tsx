@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useUser, useFirestore, useCollection } from '@/firebase';
-import { collection, doc, deleteDoc } from 'firebase/firestore';
 import { products } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/product-card';
@@ -11,15 +9,23 @@ import { Loader2, Heart } from 'lucide-react';
 import { useMemo } from 'react';
 
 export default function WishlistPage() {
-  const { data: user, loading: userLoading } = useUser();
-  const firestore = useFirestore();
+  const [user, setUser] = React.useState<any>(null);
+  const [wishlistItems, setWishlistItems] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
-  const wishlistCollectionRef = useMemo(() => {
-    if (!firestore || !user) return null;
-    return collection(firestore, `users/${user.uid}/wishlist`);
-  }, [firestore, user]);
-
-  const { data: wishlistItems, loading: wishlistLoading } = useCollection(wishlistCollectionRef);
+  React.useEffect(() => {
+    // Check for user in localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+      // Load wishlist from localStorage
+      const wishlistData = localStorage.getItem('wishlist');
+      if (wishlistData) {
+        setWishlistItems(JSON.parse(wishlistData));
+      }
+    }
+    setLoading(false);
+  }, []);
 
   const favoriteProducts = React.useMemo(() => {
     if (!wishlistItems) return [];
@@ -29,7 +35,7 @@ export default function WishlistPage() {
   }, [wishlistItems]);
 
 
-  if (userLoading || wishlistLoading) {
+  if (loading) {
     return <div className="flex justify-center items-center h-[calc(100vh-5rem)]"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 

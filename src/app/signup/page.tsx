@@ -11,11 +11,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Logo } from '@/components/logo';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth, useFirestore } from '@/firebase';
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 import Image from 'next/image';
 
 const signupSchema = z.object({
@@ -29,64 +24,54 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 export default function SignupPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const auth = useAuth();
-  const firestore = useFirestore();
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: { name: '', email: '', password: '' },
   });
 
-  const createUserProfile = (user: any, additionalData: object = {}) => {
-    if (!firestore) return;
-    const userRef = doc(firestore, `users/${user.uid}`);
-    const userData = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      ...additionalData,
-    };
-    
-    setDoc(userRef, userData, { merge: true }).catch(async (serverError) => {
-      const permissionError = new FirestorePermissionError({
-        path: userRef.path,
-        operation: 'create',
-        requestResourceData: userData,
-      });
-      errorEmitter.emit('permission-error', permissionError);
-    });
+  const createUserProfile = (userData: any) => {
+    // Mock user profile creation - store in localStorage
+    localStorage.setItem('userProfile', JSON.stringify(userData));
   }
 
   const onSubmit = async (data: SignupFormValues) => {
-    if (!auth) return;
+    // Mock signup - store user info in localStorage
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      await updateProfile(userCredential.user, { displayName: data.name });
-      createUserProfile(userCredential.user, { displayName: data.name });
+      const mockUser = {
+        email: data.email,
+        name: data.name,
+        isLoggedIn: true
+      };
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      createUserProfile(mockUser);
       toast({ title: 'Account Created', description: "Welcome to Elysian Threads!" });
       router.push('/');
     } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: error.message || 'There was a problem with your request.',
+        description: 'There was a problem with your request.',
       });
     }
   };
 
   const handleGoogleSignIn = async () => {
-    if (!auth) return;
-    const provider = new GoogleAuthProvider();
+    // Mock Google sign in
     try {
-      const result = await signInWithPopup(auth, provider);
-      createUserProfile(result.user);
+      const mockUser = {
+        email: 'user@gmail.com',
+        name: 'Google User',
+        isLoggedIn: true
+      };
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      createUserProfile(mockUser);
       toast({ title: 'Account Created', description: "Welcome!" });
       router.push('/');
     } catch (error: any) {
        toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: error.message || 'Could not sign in with Google.',
+        description: 'Could not sign in with Google.',
       });
     }
   };
